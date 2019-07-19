@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% load staticfiles %}
+    <div class="container">
+        <nav class="navbar navbar-default" role="navigation" >
+            <div class="nvbar-header">
+                <a class="navbar-brand" href="http://www.itdiffer.com"><img src="{% static '/images/logo.png' %}" width="100px"></a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav navbar-right" role="navigation">
+                    <li><a href="{% url 'home' %}">首页</a></li>
+                    <li><a href="{% url 'blog:blog_title' %}">网站首页</a></li>
+                    <li><span>{{ user.username }}</span></li>
+                    <li><a href="{% url 'account:register' %}">注册</a></li>
+                    <li><a href="{% url 'article:article_column' %}">后台管理</a></li>
+                    <li><a href="{% url 'article:article_titles' %}">文章</a></li>
+                    <li><a href="{% url 'account:user_logout' %}">退出</li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends "base.html" %}
+    {% block titlte %}Login{% endblock %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        {% block content %}
+            <div class="row text-center vertical-middle-sm">
+                <h1>Login</h1>
+                <p>输入你的 用户名和密码</p>
+                <form class="form-horizontal" action="." method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Login">
+                </form>
+            </div>
+        {% endblock %}
+
+</body>
+</html>

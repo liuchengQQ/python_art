@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends "base.html" %}
+    {% block title %}my infomation{% endblock %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% load staticfiles %}
+<script type="text/javascript">
+    $(window).load(function() {
+        function upload_image_layer() {
+          layer.open({
+              title:'上传头像',
+              area:['650px','600px'],
+              type:2,
+              content:"{% url 'account:my_images' %}"
+          });
+      }
+    });
+</script>
+    {% block content %}
+        <div class="row text-center vertical-middle-sm">
+            <h1>my infomation</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4 text-right"><span>用户名：</span></div>
+                        <div class="col-md-8 text-left">{{ user.username }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 text-right"><span>邮箱：</span></div>
+                        <div class="col-md-8 text-left">{{ user.email }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 text-right"><span>毕业学校：</span></div>
+                        <div class="col-md-8 text-left">{{ userInfo.school }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 text-right"><span>地址：</span></div>
+                        <div class="col-md-8 text-left">{{ userInfo.address }}</div>
+                    </div><div class="row">
+                        <div class="col-md-4 text-right"><span>个人介绍：</span></div>
+                        <div class="col-md-8 text-left">{{ userInfo.aboutme }}</div>
+                    </div>
+                </div>
+                {% load staticfiles %}
+                <div style="margin-right:100px">
+                    {% if userInfo.photo %}
+                    <img nam="user_face" src={{ userInfo.photo | striptags }} class="img-circle" width="500px" id="my_photo">
+                    {% else %}
+                    <img nam="user_face" src='{% static "images/timg.jpg" %}' class="img-circle" width="270px" id="my_photo">
+                    {% endif %}
+                </div>
+                <div style="margin-right:100px">
+                    <button class="btn btn-primary btn-lg" id="upload_image" onclick="upload_image_layer()" >上传图片</button>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/layer.js' %}"></script>
+    {% endblock %}
+</body>
+</html>
