@@ -1,4 +1,4 @@
-from .models import ArticleColumn,ArticlePost,Comment
+from .models import ArticleColumn,ArticlePost,Comment,ArticleTag
 from django import forms
 
 class ArticleColumnForm(forms.ModelForm):
@@ -19,3 +19,9 @@ class CommentForm(forms.Form):
     class Meta:
          model = Comment
          fields = ("commentor","body",)
+
+class ArticleTagForm(forms.Form):
+
+    class Meta:
+        model = ArticleTag
+        fields = ('tag',)

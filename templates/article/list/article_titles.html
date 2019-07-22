@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     {% extends "article/base.html" %}
+    {% load article_tags %}
     {% load staticfiles %}
     {% block title %}article column{% endblock %}
     <meta charset="UTF-8">
@@ -13,6 +14,7 @@
             <div class="container">
                  {% for art in articles %}
                      <div class="list-group">
+                         <p>这里已经有{% total_articles %}</p>
                          <a href="{{ art.get_url_path }}" class="list-group-item active">
                              <h4 class="list-group-item-heading">{{ art.title }}</h4>
                              <p class="list-group-item-text">作者：<a href="{% url 'article:author_ticles' art.author.username %}">{{ art.author.username }}</a></p>

@@ -8,6 +8,7 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 import redis
 from django.conf import settings
+from django.db.models import Count
 
 r = redis.StrictRedis(host=settings.REDIS_HOST,port=settings.REDIS_PORT,db=settings.REDIS_DB)
 
@@ -41,7 +42,10 @@ def article_detail(request,id,slug):
     article_ranking_ids = [int(id) for id in article_ranking]
     most_viewed = list(ArticlePost.objects.filter(id__in=article_ranking_ids))
     most_viewed.sort(key=lambda x:article_ranking_ids.index(x.id))
-    return render(request,"article/list/article_detail.html",{"article":article,"total_views":total_views,"most_views":most_viewed})
+    article_tags_ids = ArticlePost.article_tag.values_list(id,flat=True)
+    similar_articles = ArticlePost.objects.filter(article_tag__in=article_tags_ids).exclude(id=article.id)
+    similar_articles = similar_articles.annotate(same_tags=Count("article_tag")).order_by("-same_tags","-created")[:4]
+    return render(request,"article/list/article_detail.html",{"article":article,"total_views":total_views,"most_views":most_viewed,"similar_articles":similar_articles})
 
 
 @csrf_exempt
